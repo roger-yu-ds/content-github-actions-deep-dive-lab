@@ -1,16 +1,15 @@
-name: Depoy feature branches to nonproduction bucket
+name: Deploy site to production bucket
 
 on:
   push:
     branches:
-      - feature*
+      - main
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     env:
-      BUCKET_NAME: cfst-3457-3317c2f2327fc1a82222b93fad-nonprodbucket-5iedotd2snru
+      BUCKET_NAME: cfst-3457-3317c2f2327fc1a82222b93fad2ae-prodbucket-e01qznmjc1ur
     steps:
       - name: checkout code
         uses: actions/checkout@v4
@@ -29,4 +28,4 @@ jobs:
           npm ci
           npm run build
       - name: deploy
-        run: aws s3 cp public s3://${{ env.BUCKET_NAME }} --recursive --acl public-read
+        run: aws s3 cp public s3://${{ env.BUCKET_NAME }} --recursive
